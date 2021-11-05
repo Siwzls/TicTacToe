@@ -1,20 +1,22 @@
 ﻿#include <iostream>
+using namespace std;
 
-std::string cell1 = " 1. ";
-std::string cell2 = " 2. ";
-std::string cell3 = " 3. ";
-std::string cell4 = " 4. ";
-std::string cell5 = " 5. ";
-std::string cell6 = " 6. ";
-std::string cell7 = " 7. ";
-std::string cell8 = " 8. ";
-std::string cell9 = " 9. ";
+string cell1 = " 1. ";
+string cell2 = " 2. ";
+string cell3 = " 3. ";
+string cell4 = " 4. ";
+string cell5 = " 5. ";
+string cell6 = " 6. ";
+string cell7 = " 7. ";
+string cell8 = " 8. ";
+string cell9 = " 9. ";
 bool lastSymbolIsX = false;
 int usedCells[9];
+int countUsedCells;
 void ShowCells() {
-    std::cout << cell1 << cell2 << cell3 << std::endl;
-    std::cout << cell4 << cell5 << cell6 << std::endl;
-    std::cout << cell7 << cell8 << cell9 << std::endl;
+    cout << cell1 << cell2 << cell3 << std::endl;
+    cout << cell4 << cell5 << cell6 << std::endl;
+    cout << cell7 << cell8 << cell9 << std::endl;
 }
 void ChooseCell(int number, std::string symbol) {
     if (number != usedCells[number]) {
@@ -49,23 +51,32 @@ void ChooseCell(int number, std::string symbol) {
             break;
         }
         lastSymbolIsX = !lastSymbolIsX;
+        countUsedCells++;
     }
     else {
-        std::cout << "This cell is occupied. Enter the number one more time." << std::endl;
+        cout << "This cell is occupied. Enter the number one more time." << endl;
     }
     ShowCells();
 }
 bool GameOverCheck() {
-    //Horizontal
+    //Horizontal Win
     if (cell1 == cell2 && cell2 == cell3 || cell4 == cell5 && cell5 == cell6 || cell7 == cell8 && cell8 == cell9) {
+        lastSymbolIsX?cout << "X Win" : cout <<"O Win";
         return true;
     }
-    //Vertical
+    //Vertical Win
     else if (cell1 == cell4 && cell4 == cell7 || cell2 == cell5 && cell5 == cell8 || cell3 == cell6 && cell6 == cell9) {
+        lastSymbolIsX ? cout << "X Win" : cout << "O Win";
         return true;
     }
-    //Diagonal 
+    //Diagonal Win
     else if (cell1 == cell5 && cell5 == cell9 || cell3 == cell5 && cell5 == cell7) {
+        lastSymbolIsX ? cout << "X Win" : cout << "O Win";
+        return true;
+    }
+    //Draw
+    if (countUsedCells == 9) {
+        cout << "Draw";
         return true;
     }
     return false;
@@ -75,9 +86,9 @@ int main()
     ShowCells();
     while (!GameOverCheck())
     {
-        std::cout << "Enter the number: ";
+        cout << "Enter the number: ";
         int number;
-        std::cin >> number;
+        cin >> number;
         if (lastSymbolIsX == false) {
             ChooseCell(number, " X ");
         }
@@ -87,4 +98,3 @@ int main()
     }
     return 0;
 }
-
